@@ -2,11 +2,11 @@ import "./style.css"
 
 import React from "react";
 
-export default function Footer() {
+export default function Footer({ totalPerguntas, cardsRespondidas }) {
     return (
         <footer>
             <h3>
-                0/4 CONCLUÍDOS
+                {cardsRespondidas}/{totalPerguntas} CONCLUÍDOS
             </h3>
         </footer>
     );

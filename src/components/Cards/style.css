@@ -9,6 +9,10 @@
 
 .pergunta {
     width: 300px;
+}
+
+.caixaPergunta {
+    width: 100%;
     height: 65px;
     background: #FFFFFF;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
@@ -18,6 +22,11 @@
     justify-content: space-between;
     padding: 0 12px;
     border: 4px solid transparent;
+    overflow-x: hidden;
+}
+
+.caixaPergunta:active {
+    filter: brightness(.7);
 }
 
 .lembrou {
@@ -32,7 +41,7 @@
     border: 4px solid #FF3030;
 }
 
-.pergunta h2 {
+h2 {
     font-family: 'Recursive';
     font-style: normal;
     font-weight: 700;
@@ -49,9 +58,18 @@
     cursor: pointer;
 }
 
+
 .rapido {
     text-decoration-line: line-through;
     color: #2FBE34;
+}
+.demorado {
+    text-decoration-line: line-through;
+    color: #FF922E;
+}
+.errado {
+    text-decoration-line: line-through;
+    color: #FF3030;
 }
 
 .perguntaMostra {
@@ -63,6 +81,9 @@
     padding: 16px 16px 6px;
     position: relative;
     transition: all 0.8s;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .perguntaCima {
@@ -146,4 +167,8 @@
     line-height: 14px;
     width: 70px;
     color: #FFFFFF;
+}
+
+.hidden {
+    display: none;
 }

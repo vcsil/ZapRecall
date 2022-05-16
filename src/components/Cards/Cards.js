@@ -1,10 +1,12 @@
 import './style.css';
-import setinha from "../../assets/image/Vector.png";
 
 import React from "react";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Questao from './Questao';
+import CaixaPergunta from './CaixaPergunta';
 
+let cardsRespondidas = 0;
 
 const perguntas = {
     "P1":
@@ -49,7 +51,6 @@ const perguntas = {
     }
 }
 
-
 // Função que gera um número randômico
 function comparador() {
     return Math.random() - 0.5;
@@ -57,11 +58,65 @@ function comparador() {
 
 const listPerguntas = Object.keys(perguntas).sort(comparador);
 
-function Pergunta({ question, index }) {
+function Pergunta({ idQuestion, index, boleanTrava, trava, destrava }) {
+    const question = perguntas[idQuestion].Question;
+    const answer = perguntas[idQuestion].Answer;
+    
+    
+    // Cards respondiddos
+    const [cardsRespondido, setCardRespondido] = React.useState([]);
+
+    function insereCard() {
+        setCardRespondido([...cardsRespondido, perguntas[idQuestion]]);
+    }
+
+    // Controla o cartão com a pergunta
+    const [mostraPergunta, setMostraPergunta] = React.useState(false);
+
+    let classCaixaPergunta = 'caixaPergunta';
+    let classMostraPergunta = ' hidden'
+
+    if (mostraPergunta) {
+        classCaixaPergunta += ' hidden'
+        classMostraPergunta = ''
+        trava()
+    }
+
+    // Controla a cor da caixa de pergunta
+    const [corPergunta, setCorPergunta] = React.useState({ 'class': '', 'icon': "play-outline", 'color': '' })
+
+    function verde() {
+        setCorPergunta({ 'class': 'rapido', 'icon': "checkmark-circle", 'color': '#2FBE34' })
+        setMostraPergunta(false)
+        destrava()
+        cardsRespondidas++
+    }
+    function laranja() {
+        setCorPergunta({ 'class': 'demorado', 'icon': "help-circle", 'color': '#FF922E' })
+        setMostraPergunta(false)
+        destrava()
+        cardsRespondidas++
+    }
+    function vermelho() {
+        setCorPergunta({ 'class': 'errado', 'icon': "close-circle", 'color': '#FF3030' })
+        setMostraPergunta(false)
+        destrava()
+        cardsRespondidas++
+    }
+
     return (
-        <li className='pergunta' key={index} >
-            <h2>Pergunta {index}</h2>
-            <ion-icon name="play-outline"></ion-icon>
+        <li className='pergunta' key={index}>
+
+            <CaixaPergunta index={index} classe={classCaixaPergunta + boleanTrava}
+                acao={() => setMostraPergunta(true)} corPergunta={corPergunta} 
+                cardsRespondido={cardsRespondido} setCardRespondido={setCardRespondido}
+                insereCard={insereCard} />
+
+            {/* Mostra a pergunta */}
+            <Questao question={question} answer={answer} classe={classMostraPergunta}
+                trava={trava} destrava={destrava} corPergunta={corPergunta}
+                verde={verde} laranja={laranja} vermelho={vermelho} />
+
         </li>
     );
 }
@@ -69,17 +124,16 @@ function Pergunta({ question, index }) {
 
 export default function Cards() {
     // Lógica
-    const [mostraResposta, setMostraResposta] = React.useState(false)
 
-    let classPergunta = "perguntaCima"
-    let classResposta = "respostaBaixo"
+    const [bloqueiaClick, setBloqueiaClick] = React.useState('')
 
-    if (mostraResposta) {
-        console.log("Foi")
-        classPergunta += " perguntaBaixo"
-        classResposta += " respostaCima"
+    function trava() {
+        setBloqueiaClick(' bloqueiaClick')
     }
 
+    function destrava() {
+        setBloqueiaClick('')
+    }
 
     // UX
     return (
@@ -87,28 +141,12 @@ export default function Cards() {
             <Header />
 
             <ul className='todasPerguntas'>
-                {listPerguntas.map((question, index) => (<Pergunta key={index}  question={question} index={index+1}/>))}
-                {/* <div className='perguntaMostra'>
-                    <div className={classPergunta}>
-                        <h2>
-                            O que é JSX?
-                        </h2>
-                        <img src={setinha} alt='Vira carta' onClick={() => setMostraResposta(true)} />
-                    </div>
-                    <div className={classResposta}>
-                        <h2>
-                            JSX é uma sintaxe para escrever HTML dentro do JS
-                        </h2>
-                        <div className='botoesResposta'>
-                            <button className='respostaUser vermelho'> <h3>Não <br /> lembrei</h3> </button>
-                            <button className='respostaUser laranja'> <h3>Quase não lembrei</h3> </button>
-                            <button className='respostaUser verde'> <h3>Zap!</h3> </button>
-                        </div>
-                    </div>
-                </div> */}
+                {listPerguntas.map((idQuestion, index) => (<Pergunta key={index} idQuestion={idQuestion}
+                    index={index + 1} boleanTrava={bloqueiaClick} trava={trava}
+                    destrava={destrava} />))}
             </ul>
 
-            <Footer />
+            <Footer totalPerguntas={listPerguntas.length} cardsRespondidas={cardsRespondidas} />
         </>
     );
 }

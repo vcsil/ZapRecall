@@ -25,3 +25,11 @@ button:active {
 .verde {
     background-color: #2FBE34;
 }
+
+.bloqueiaClick {
+    pointer-events: none;
+}
+
+.hidden {
+    display: none;
+}
