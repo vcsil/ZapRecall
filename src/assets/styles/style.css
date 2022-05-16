@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #FB6B6B;
+}
+
+button:hover {
+    filter: brightness(.90);
+}
+
+button:active {
+    filter: brightness(.7);
+}
+
+.vermelho {
+    background-color: #FF3030;
+}
+
+.laranja {
+    background-color: #FF922E;
+}
+
+.verde {
+    background-color: #2FBE34;
+}

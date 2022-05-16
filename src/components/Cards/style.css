@@ -1,0 +1,149 @@
+.todasPerguntas {
+    margin-top: 144px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 26px;
+    margin-bottom: 100px;
+}
+
+.pergunta {
+    width: 300px;
+    height: 65px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    border: 4px solid transparent;
+}
+
+.lembrou {
+    border: 4px solid #2FBE34;
+}
+
+.quaseNLembrou {
+    border: 4px solid #FF922E;
+}
+
+.esqueceu {
+    border: 4px solid #FF3030;
+}
+
+.pergunta h2 {
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #333333;
+    cursor: pointer;
+}
+
+.pergunta ion-icon {
+    color: #333333;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+}
+
+.rapido {
+    text-decoration-line: line-through;
+    color: #2FBE34;
+}
+
+.perguntaMostra {
+    width: 300px;
+    height: 130px;
+    background-color: #FFFFD5;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    padding: 16px 16px 6px;
+    position: relative;
+    transition: all 0.8s;
+}
+
+.perguntaCima {
+    word-break: break-word;
+    overflow: scroll;
+    width: 268px;
+    height: 108px;
+    margin-bottom: 20px;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: all 0.8s;
+}
+
+.perguntaBaixo {
+    transform: rotateY(-180deg);
+}
+
+.perguntaCima h2{
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #333333;
+}
+
+.perguntaMostra img{
+    width: 30px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.respostaBaixo {
+    height: 100%;
+    width: 100%;
+    word-break: break-word;
+    overflow: scroll;
+    transition: all 0.8s;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+
+.respostaCima {
+    transform: rotateY(0deg);
+}
+
+.respostaBaixo h2 {
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.botoesResposta {
+    display: flex;
+    justify-content: space-between;
+    bottom: 8px;
+}
+
+.respostaUser {
+    width: 86px;
+    height: 36px;
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.respostaUser h3{
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    width: 70px;
+    color: #FFFFFF;
+}
