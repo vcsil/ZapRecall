@@ -8,6 +8,7 @@ import CaixaPergunta from './CaixaPergunta';
 
 let cardsRespondidas = 0;
 let respostas = [];
+let zaps = 0;
 
 const perguntas = {
     "P1":
@@ -62,8 +63,8 @@ const listPerguntas = Object.keys(perguntas).sort(comparador);
 function Pergunta({ idQuestion, index, boleanTrava, trava, destrava }) {
     const question = perguntas[idQuestion].Question;
     const answer = perguntas[idQuestion].Answer;
-    
-    
+
+
     // Cards respondiddos
     const [cardRespondido, setCardRespondido] = React.useState(false);
 
@@ -89,13 +90,14 @@ function Pergunta({ idQuestion, index, boleanTrava, trava, destrava }) {
     function finalizarResposta(cor) {
         if (cor === 'verde') {
             setCorPergunta({ 'class': 'rapido', 'icon': "checkmark-circle", 'color': '#2FBE34' })
-            respostas.push({'icon': "checkmark-circle", 'color': '#2FBE34'})
-        } else if ( cor === 'laranja') {
+            respostas.push({ 'icon': "checkmark-circle", 'color': '#2FBE34' })
+            zaps++
+        } else if (cor === 'laranja') {
             setCorPergunta({ 'class': 'demorado', 'icon': "help-circle", 'color': '#FF922E' })
-            respostas.push({'icon': "help-circle", 'color': '#FF922E'})
-        } else if ( cor === 'vermelho') {
+            respostas.push({ 'icon': "help-circle", 'color': '#FF922E' })
+        } else if (cor === 'vermelho') {
             setCorPergunta({ 'class': 'errado', 'icon': "close-circle", 'color': '#FF3030' })
-            respostas.push({'icon': "close-circle", 'color': '#FF3030'})
+            respostas.push({ 'icon': "close-circle", 'color': '#FF3030' })
         }
 
         setMostraPergunta(false)
@@ -109,8 +111,8 @@ function Pergunta({ idQuestion, index, boleanTrava, trava, destrava }) {
 
             <CaixaPergunta index={index} classe={
                 !cardRespondido ? classCaixaPergunta + boleanTrava : classCaixaPergunta + ' bloqueiaClick'
-                }
-                acao={() => setMostraPergunta(true)} corPergunta={corPergunta} 
+            }
+                acao={() => setMostraPergunta(true)} corPergunta={corPergunta}
                 cardRespondido={cardRespondido} respondido={respondido} />
 
             {/* Mostra a pergunta */}
@@ -136,23 +138,19 @@ export default function Cards() {
         setBloqueiaClick('')
     }
 
-    let classPerguntas = ''
-    if (cardsRespondidas === perguntas.length) {
-        classPerguntas = ' cresce'
-    }
-
     // UX
     return (
         <>
             <Header />
 
-            <ul className={"todasPerguntas" + classPerguntas }>
+            <ul className='todasPerguntas'>
                 {listPerguntas.map((idQuestion, index) => (<Pergunta key={index} idQuestion={idQuestion}
                     index={index + 1} boleanTrava={bloqueiaClick} trava={trava}
                     destrava={destrava} />))}
             </ul>
 
-            <Footer totalPerguntas={listPerguntas.length} cardsRespondidas={cardsRespondidas} respostas={respostas} />
+            <Footer totalPerguntas={listPerguntas.length} cardsRespondidas={cardsRespondidas}
+                respostas={respostas} />
         </>
     );
 }

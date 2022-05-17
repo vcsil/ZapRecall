@@ -4,12 +4,8 @@
     align-items: center;
     flex-direction: column;
     row-gap: 26px;
-    margin-bottom: 100px;
+    margin-bottom: 270px;
     transition: all 0.8s;
-}
-
-.cresce {
-    margin-bottom: 200px;
 }
 
 .pergunta {

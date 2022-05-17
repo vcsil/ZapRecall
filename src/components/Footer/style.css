@@ -3,7 +3,7 @@ footer {
     height: 70px;
     bottom: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     background-color: #fff;
     display: flex;
     justify-content: center;
@@ -13,7 +13,7 @@ footer {
 }
 
 .result {
-    height: 170px;
+    height: 244px;
 }
 
 .quadro {
@@ -23,14 +23,15 @@ footer {
 }
 
 ion-icon {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
 }
 
 .icones {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 16px;
 }
 
 footer>h3,
@@ -70,4 +71,22 @@ footer>h3,
     color: #333333;
     width: 222px;
     word-break: break-word;
+}
+
+.resultado > button {
+    width: 167px;
+    height: 32px;
+    background: #FB6B6B;
+    border-radius: 5px;
+    border: 0;
+}
+
+button p {
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #FFFFFF;
 }

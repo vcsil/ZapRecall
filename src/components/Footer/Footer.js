@@ -2,6 +2,10 @@ import "./style.css"
 
 import React from "react";
 
+function reiniciaPag() {
+    window.location.reload()
+}
+
 function SoNumero({ total, respondidas }) {
     return (
         <h3>
@@ -51,6 +55,9 @@ function Resultado({ total, respondidas, respostas }) {
                     {respostas.map((i, index) => <ion-icon name={i.icon} key={index} style={{ color: i.color }} ></ion-icon>)}
                 </div>
             </div>
+            <button onClick={reiniciaPag}>
+                <p>REINICIAR RECALL</p>
+            </button>
         </div>
     );
 }
@@ -64,18 +71,18 @@ export default function Footer({ totalPerguntas, cardsRespondidas, respostas }) 
 
     return (
         <footer className={classFooter}>
-            {   
+            {
                 cardsRespondidas === 0 ?
-                <SoNumero total={totalPerguntas} respondidas={cardsRespondidas} />
-                :
-                (
-                    cardsRespondidas === totalPerguntas ? 
-                    <Resultado total={totalPerguntas} respondidas={cardsRespondidas} respostas={respostas} />
+                    <SoNumero total={totalPerguntas} respondidas={cardsRespondidas} />
                     :
-                    <Completo total={totalPerguntas} respondidas={cardsRespondidas} respostas={respostas} />
-                )
+                    (
+                        cardsRespondidas === totalPerguntas ?
+                            <Resultado total={totalPerguntas} respondidas={cardsRespondidas} respostas={respostas} />
+                            :
+                            <Completo total={totalPerguntas} respondidas={cardsRespondidas} respostas={respostas} />
+                    )
             }
-            
+
         </footer>
     );
 }
