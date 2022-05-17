@@ -8,13 +8,66 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 8px 0;
+    transition: all 0.8s;
 }
 
-footer h3 {
+.result {
+    height: 170px;
+}
+
+.quadro {
+    display: grid;
+    align-content: space-between;
+    text-align: center;
+}
+
+ion-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.icones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer>h3,
+.quadro>h3 {
     font-family: 'Recursive';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
     color: #333333;
+}
+
+.resultado {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.resultado>h3 {
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #333333;
+}
+
+.resultado>p {
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #333333;
+    width: 222px;
+    word-break: break-word;
 }

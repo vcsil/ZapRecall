@@ -12,14 +12,14 @@ export default function App() {
 
     return (
         <>
-            {/* {
+            {
                 !init ? 
                 <Initial setInit={setInit} /> 
                 : 
                 <Cards />
-            } */}
+            }
 
-            <Cards />
+            {/* <Cards /> */}
         </>
     )
 }

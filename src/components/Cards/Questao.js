@@ -3,7 +3,7 @@ import setinha from "../../assets/image/Vector.png";
 
 import React from "react";
 
-export default function Questao({ question, answer, classe, verde, laranja, vermelho  }) {
+export default function Questao({ question, answer, classe, finalizarResposta  }) {
     //Logica
 
     const [mostraResposta, setMostraResposta] = React.useState(false);
@@ -33,9 +33,9 @@ export default function Questao({ question, answer, classe, verde, laranja, verm
                     {answer}
                 </h2>
                 <div className='botoesResposta'>
-                    <button className='respostaUser vermelho' onClick={() => vermelho()}> <h3>Não <br /> lembrei</h3> </button>
-                    <button className='respostaUser laranja' onClick={() => laranja()}> <h3>Quase não lembrei</h3> </button>
-                    <button className='respostaUser verde' onClick={() => verde()}> <h3>Zap!</h3> </button>
+                    <button className='respostaUser vermelho' onClick={() => finalizarResposta('vermelho')}> <h3>Não <br /> lembrei</h3> </button>
+                    <button className='respostaUser laranja' onClick={() => finalizarResposta('laranja')}> <h3>Quase não lembrei</h3> </button>
+                    <button className='respostaUser verde' onClick={() => finalizarResposta('verde')}> <h3>Zap!</h3> </button>
                 </div>
             </div>
         </div>

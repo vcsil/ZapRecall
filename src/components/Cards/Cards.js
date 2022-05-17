@@ -7,6 +7,7 @@ import Questao from './Questao';
 import CaixaPergunta from './CaixaPergunta';
 
 let cardsRespondidas = 0;
+let respostas = [];
 
 const perguntas = {
     "P1":
@@ -64,10 +65,10 @@ function Pergunta({ idQuestion, index, boleanTrava, trava, destrava }) {
     
     
     // Cards respondiddos
-    const [cardsRespondido, setCardRespondido] = React.useState([]);
+    const [cardRespondido, setCardRespondido] = React.useState(false);
 
-    function insereCard() {
-        setCardRespondido([...cardsRespondido, perguntas[idQuestion]]);
+    function respondido() {
+        setCardRespondido(true);
     }
 
     // Controla o cartão com a pergunta
@@ -85,37 +86,37 @@ function Pergunta({ idQuestion, index, boleanTrava, trava, destrava }) {
     // Controla a cor da caixa de pergunta
     const [corPergunta, setCorPergunta] = React.useState({ 'class': '', 'icon': "play-outline", 'color': '' })
 
-    function verde() {
-        setCorPergunta({ 'class': 'rapido', 'icon': "checkmark-circle", 'color': '#2FBE34' })
+    function finalizarResposta(cor) {
+        if (cor === 'verde') {
+            setCorPergunta({ 'class': 'rapido', 'icon': "checkmark-circle", 'color': '#2FBE34' })
+            respostas.push({'icon': "checkmark-circle", 'color': '#2FBE34'})
+        } else if ( cor === 'laranja') {
+            setCorPergunta({ 'class': 'demorado', 'icon': "help-circle", 'color': '#FF922E' })
+            respostas.push({'icon': "help-circle", 'color': '#FF922E'})
+        } else if ( cor === 'vermelho') {
+            setCorPergunta({ 'class': 'errado', 'icon': "close-circle", 'color': '#FF3030' })
+            respostas.push({'icon': "close-circle", 'color': '#FF3030'})
+        }
+
         setMostraPergunta(false)
         destrava()
-        cardsRespondidas++
-    }
-    function laranja() {
-        setCorPergunta({ 'class': 'demorado', 'icon': "help-circle", 'color': '#FF922E' })
-        setMostraPergunta(false)
-        destrava()
-        cardsRespondidas++
-    }
-    function vermelho() {
-        setCorPergunta({ 'class': 'errado', 'icon': "close-circle", 'color': '#FF3030' })
-        setMostraPergunta(false)
-        destrava()
+        respondido()
         cardsRespondidas++
     }
 
     return (
         <li className='pergunta' key={index}>
 
-            <CaixaPergunta index={index} classe={classCaixaPergunta + boleanTrava}
+            <CaixaPergunta index={index} classe={
+                !cardRespondido ? classCaixaPergunta + boleanTrava : classCaixaPergunta + ' bloqueiaClick'
+                }
                 acao={() => setMostraPergunta(true)} corPergunta={corPergunta} 
-                cardsRespondido={cardsRespondido} setCardRespondido={setCardRespondido}
-                insereCard={insereCard} />
+                cardRespondido={cardRespondido} respondido={respondido} />
 
             {/* Mostra a pergunta */}
             <Questao question={question} answer={answer} classe={classMostraPergunta}
                 trava={trava} destrava={destrava} corPergunta={corPergunta}
-                verde={verde} laranja={laranja} vermelho={vermelho} />
+                finalizarResposta={finalizarResposta} />
 
         </li>
     );
@@ -135,18 +136,23 @@ export default function Cards() {
         setBloqueiaClick('')
     }
 
+    let classPerguntas = ''
+    if (cardsRespondidas === perguntas.length) {
+        classPerguntas = ' cresce'
+    }
+
     // UX
     return (
         <>
             <Header />
 
-            <ul className='todasPerguntas'>
+            <ul className={"todasPerguntas" + classPerguntas }>
                 {listPerguntas.map((idQuestion, index) => (<Pergunta key={index} idQuestion={idQuestion}
                     index={index + 1} boleanTrava={bloqueiaClick} trava={trava}
                     destrava={destrava} />))}
             </ul>
 
-            <Footer totalPerguntas={listPerguntas.length} cardsRespondidas={cardsRespondidas} />
+            <Footer totalPerguntas={listPerguntas.length} cardsRespondidas={cardsRespondidas} respostas={respostas} />
         </>
     );
 }
