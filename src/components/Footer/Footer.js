@@ -27,13 +27,13 @@ function Completo({ total, respondidas, respostas }) {
     );
 }
 
-function Resultado({ total, respondidas, respostas }) {
+function Resultado({ total, respondidas, respostas, metaZap, zaps }) {
     let temErro = respostas.filter((t) => t.icon === 'close-circle').length >= 1;
 
     let titulo;
     let texto;
 
-    if (temErro) {
+    if (temErro ||  Number(metaZap) !== zaps) {
         titulo = "😥 Putz..."
         texto = "Ainda faltam alguns... Mas não desanime!"
     } else {
@@ -62,12 +62,14 @@ function Resultado({ total, respondidas, respostas }) {
     );
 }
 
-export default function Footer({ totalPerguntas, cardsRespondidas, respostas }) {
+export default function Footer({ totalPerguntas, cardsRespondidas, respostas, metaZap, zaps }) {
     // Lógica
     let classFooter = ''
     if (cardsRespondidas === totalPerguntas) {
         classFooter = 'result'
     }
+
+    console.log(zaps, metaZap)
 
     return (
         <footer className={classFooter}>
@@ -77,9 +79,11 @@ export default function Footer({ totalPerguntas, cardsRespondidas, respostas }) 
                     :
                     (
                         cardsRespondidas === totalPerguntas ?
-                            <Resultado total={totalPerguntas} respondidas={cardsRespondidas} respostas={respostas} />
+                            <Resultado total={totalPerguntas} respondidas={cardsRespondidas} 
+                                        respostas={respostas} />
                             :
-                            <Completo total={totalPerguntas} respondidas={cardsRespondidas} respostas={respostas} />
+                            <Completo total={totalPerguntas} respondidas={cardsRespondidas} 
+                                      respostas={respostas} metaZap={metaZap} zaps={zaps} />
                     )
             }
 

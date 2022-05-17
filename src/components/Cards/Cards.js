@@ -6,6 +6,7 @@ import Footer from '../Footer/Footer';
 import Questao from './Questao';
 import CaixaPergunta from './CaixaPergunta';
 
+
 let cardsRespondidas = 0;
 let respostas = [];
 let zaps = 0;
@@ -61,6 +62,7 @@ function comparador() {
 const listPerguntas = Object.keys(perguntas).sort(comparador);
 
 function Pergunta({ idQuestion, index, boleanTrava, trava, destrava }) {
+
     const question = perguntas[idQuestion].Question;
     const answer = perguntas[idQuestion].Answer;
 
@@ -87,17 +89,24 @@ function Pergunta({ idQuestion, index, boleanTrava, trava, destrava }) {
     // Controla a cor da caixa de pergunta
     const [corPergunta, setCorPergunta] = React.useState({ 'class': '', 'icon': "play-outline", 'color': '' })
 
+    // Controla a cor da borda
+    const [bordaPergunta, setBordaPergunta] = React.useState('')
+
+    // Montar a caixa de pergunta
     function finalizarResposta(cor) {
         if (cor === 'verde') {
             setCorPergunta({ 'class': 'rapido', 'icon': "checkmark-circle", 'color': '#2FBE34' })
             respostas.push({ 'icon': "checkmark-circle", 'color': '#2FBE34' })
             zaps++
+            setBordaPergunta("lembrou")
         } else if (cor === 'laranja') {
             setCorPergunta({ 'class': 'demorado', 'icon': "help-circle", 'color': '#FF922E' })
             respostas.push({ 'icon': "help-circle", 'color': '#FF922E' })
+            setBordaPergunta("quaseNLembrou")
         } else if (cor === 'vermelho') {
             setCorPergunta({ 'class': 'errado', 'icon': "close-circle", 'color': '#FF3030' })
             respostas.push({ 'icon': "close-circle", 'color': '#FF3030' })
+            setBordaPergunta("esqueceu")
         }
 
         setMostraPergunta(false)
@@ -110,10 +119,14 @@ function Pergunta({ idQuestion, index, boleanTrava, trava, destrava }) {
         <li className='pergunta' key={index}>
 
             <CaixaPergunta index={index} classe={
-                !cardRespondido ? classCaixaPergunta + boleanTrava : classCaixaPergunta + ' bloqueiaClick'
+                !cardRespondido ? 
+                classCaixaPergunta + boleanTrava 
+                : 
+                classCaixaPergunta + ' bloqueiaClick ' + bordaPergunta
             }
                 acao={() => setMostraPergunta(true)} corPergunta={corPergunta}
-                cardRespondido={cardRespondido} respondido={respondido} />
+                cardRespondido={cardRespondido} respondido={respondido} 
+                bordaPergunta={bordaPergunta} />
 
             {/* Mostra a pergunta */}
             <Questao question={question} answer={answer} classe={classMostraPergunta}
@@ -125,7 +138,7 @@ function Pergunta({ idQuestion, index, boleanTrava, trava, destrava }) {
 }
 
 
-export default function Cards() {
+export default function Cards({ metaZap }) {
     // Lógica
 
     const [bloqueiaClick, setBloqueiaClick] = React.useState('')
@@ -150,7 +163,7 @@ export default function Cards() {
             </ul>
 
             <Footer totalPerguntas={listPerguntas.length} cardsRespondidas={cardsRespondidas}
-                respostas={respostas} />
+                respostas={respostas} metaZap={metaZap} zaps={zaps} />
         </>
     );
 }

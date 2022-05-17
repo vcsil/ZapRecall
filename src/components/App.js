@@ -8,15 +8,15 @@ import Cards from "./Cards/Cards.js";
 export default function App() {
 
     const [init, setInit] = React.useState(false);
-
+    const [metaZap, setMetaZap] = React.useState('');
 
     return (
         <>
             {
                 !init ? 
-                <Initial setInit={setInit} /> 
+                <Initial setInit={setInit} metaZap={metaZap} setMetaZap={setMetaZap} /> 
                 : 
-                <Cards />
+                <Cards metaZap={metaZap} />
             }
 
             {/* <Cards /> */}

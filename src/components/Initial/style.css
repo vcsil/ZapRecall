@@ -48,3 +48,26 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+input {
+    width: 246px;
+    height: 44px;
+    opacity: 0.9;
+    margin-bottom: 16px;
+    border-radius: 5px;
+    border: 0;
+    padding: 10px;
+}
+
+input::placeholder {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #ADADAD;
+}
+
+.cinza {
+    filter: brightness(0.7);
+}
